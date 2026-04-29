@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formulário Preliminar de Marketing Digital — Eng. Luis Mota</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1143,31 +1142,49 @@
       </div>
     `;
 
-    // Criar e fazer download do PDF
-    const element = document.createElement('div');
-    element.innerHTML = htmlContent;
-    
-    const opt = {
-      margin: 10,
-      filename: `diagnostico_marketing_${data.replace(/\//g, '-')}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+    const payload = {
+      date: data,
+      time: hora,
+      answers: {
+        q1: getAns('q1','q1-ans'),
+        q2: getAns('q2','q2-ans'),
+        q3: getAns('q3','q3-ans'),
+        q4: getAns('q4','q4-ans'),
+        q5: getAns('q5','q5-ans'),
+        q6: getAns('q6'),
+        q7: getAns('q7','q7-ans'),
+        q8: getAns('q8'),
+        q8_freq: getTextVal('q8-freq') || '—',
+        q9: getAns('q9'),
+        q10: getAns('q10'),
+        q11: getAns('q11'),
+        q12: getAns('q12'),
+        q13: getAns('q13'),
+        q14: getAns('q14'),
+        q15: getAns('q15')
+      }
     };
 
-    html2pdf().set(opt).from(element).save().then(() => {
-      // Abrir WhatsApp com mensagem informando que o PDF foi gerado
-      const msg = `📋 Novo diagnóstico recebido!\n\nEm anexo está seu relatório em PDF.\n\nData: ${data} às ${hora}\n\nEstou analisando seus dados. Entrarei em contato em até 24h para agendarmos a Reunião de Apresentação. 🚀`;
-      setTimeout(() => {
-        window.open('https://wa.me/5591991815479?text=' + encodeURIComponent(msg), '_blank');
-      }, 500);
+    fetch('/api/send-diagnostico', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(async response => {
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Falha ao enviar o diagnóstico.');
+      }
+      return response.json();
+    })
+    .then(() => {
+      document.getElementById('screen-summary').style.display = 'none';
+      const conf = document.getElementById('screen-confirm');
+      conf.style.display = 'flex';
+    })
+    .catch(error => {
+      alert(`Erro ao enviar para WhatsApp: ${error.message}`);
     });
-
-    try { localStorage.removeItem('diag_draft_lm'); } catch(e) {}
-
-    document.getElementById('screen-summary').style.display = 'none';
-    const conf = document.getElementById('screen-confirm');
-    conf.style.display = 'flex';
   }
 </script>
 </body>
