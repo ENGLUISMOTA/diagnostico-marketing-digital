@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário Preliminar de Marketing Digital — Eng. Luis Mota</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f1f3d;
+    --navy-light: #162847;
+    --navy-border: #1e3354;
+    --navy-muted: #2a4268;
+    --white: #ffffff;
+    --white-70: rgba(255,255,255,0.7);
+    --white-40: rgba(255,255,255,0.4);
+    --white-15: rgba(255,255,255,0.15);
+    --white-08: rgba(255,255,255,0.08);
+    --accent: #4a90d9;
+    --accent-light: rgba(74,144,217,0.15);
+    --danger: #e05252;
+    --success: #4caf7d;
+    --gold: #c9a84c;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* TELA DE ENTRADA */
+  #screen-intro {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    border: 2px solid var(--white-40);
+    background: var(--navy-light);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--white);
+    margin: 0 auto 1.5rem;
+    overflow: hidden;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .intro-tag {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--white-40);
+    margin-bottom: 1rem;
+  }
+
+  .intro-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+  }
+
+  .intro-desc {
+    font-size: 14px;
+    color: var(--white-70);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .intro-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--white-40);
+    margin-bottom: 2.5rem;
+  }
+
+  .intro-time::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 40px;
+    border: 1px solid var(--white-40);
+    background: transparent;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+
+  .btn-primary:hover { background: var(--white-08); border-color: var(--white-70); }
+
+  /* FORMULÁRIO */
+  #screen-form { display: none; min-height: 100vh; }
+
+  .form-header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--navy);
+    border-bottom: 1px solid var(--navy-border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .form-header-name {
+    font-size: 12px;
+    color: var(--white-40);
+    letter-spacing: 1px;
+  }
+
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .progress-text {
+    font-size: 12px;
+    color: var(--white-40);
+    white-space: nowrap;
+  }
+
+  .progress-bar {
+    width: 120px;
+    height: 2px;
+    background: var(--white-15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--white-70);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .form-body {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  .block-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--navy-border);
+  }
+
+  .block-number {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white-40);
+    margin-bottom: 0.5rem;
+  }
+
+  .block-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .block-desc {
+    font-size: 13px;
+    color: var(--white-40);
+    line-height: 1.6;
+  }
+
+  .question {
+    margin-bottom: 2.5rem;
+    transition: opacity 0.3s;
+  }
+
+  .question.hidden { display: none; }
+
+  .q-label-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 0.75rem;
+  }
+
+  .q-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--white);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .q-badges {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .badge-sensitive {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-sensitive::before {
+    content: '🔒';
+    font-size: 9px;
+  }
+
+  .btn-explain {
+    background: transparent;
+    border: 1px solid var(--white-15);
+    color: var(--white-40);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-explain:hover { border-color: var(--white-40); color: var(--white-70); }
+
+  .explain-box {
+    display: none;
+    background: var(--white-08);
+    border-left: 2px solid var(--accent);
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .explain-box.open { display: block; }
+
+  .explain-box p {
+    font-size: 13px;
+    color: var(--white-70);
+    line-height: 1.6;
+  }
+
+  .q-input {
+    width: 100%;
+    background: var(--white-08);
+    border: 1px solid var(--navy-border);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-radius: 2px;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+
+  .q-input:focus {
+    outline: none;
+    border-color: var(--white-40);
+  }
+
+  .q-input::placeholder { color: var(--white-40); }
+
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .opt-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--white-08);
+    border: 1px solid var(--navy-border);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    color: var(--white-70);
+  }
+
+  .opt-item:hover { border-color: var(--white-40); color: var(--white); }
+
+  .opt-item.selected {
+    border-color: var(--white-70);
+    background: var(--white-15);
+    color: var(--white);
+  }
+
+  .opt-item.decline {
+    color: var(--white-40);
+    border-style: dashed;
+  }
+
+  .opt-item.decline.selected {
+    color: var(--white-70);
+    border-style: dashed;
+    border-color: var(--white-40);
+  }
+
+  .opt-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 1px solid var(--white-40);
+    flex-shrink: 0;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .opt-item.selected .opt-dot {
+    background: var(--white);
+    border-color: var(--white);
+  }
+
+  .opt-item.selected .opt-dot::after {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--navy);
+  }
+
+  .conditional-field { display: none; margin-top: 12px; }
+  .conditional-field.open { display: block; }
+
+  .block-nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--navy-border);
+  }
+
+  .btn-nav {
+    padding: 13px 28px;
+    border: 1px solid var(--white-40);
+    background: transparent;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-nav:hover { background: var(--white-08); }
+
+  .btn-nav.primary {
+    background: var(--white);
+    color: var(--navy);
+    border-color: var(--white);
+    font-weight: 500;
+  }
+
+  .btn-nav.primary:hover { background: var(--white-70); }
+
+  /* SCORE */
+  #screen-score { display: none; min-height: 100vh; }
+
+  .score-body {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .score-ring-wrap {
+    margin: 0 auto 2.5rem;
+    width: 140px; height: 140px;
+    position: relative;
+  }
+
+  .score-ring-wrap svg { transform: rotate(-90deg); }
+
+  .score-number {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--white);
+  }
+
+  .score-level {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white-40);
+    margin-bottom: 0.75rem;
+  }
+
+  .score-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .score-msg {
+    font-size: 14px;
+    color: var(--white-70);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  /* RESUMO */
+  #screen-summary { display: none; min-height: 100vh; }
+
+  .summary-body {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  .summary-header { margin-bottom: 2rem; }
+
+  .summary-tag {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white-40);
+    margin-bottom: 0.5rem;
+  }
+
+  .summary-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .summary-block {
+    margin-bottom: 2rem;
+    border: 1px solid var(--navy-border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .summary-block-title {
+    background: var(--white-08);
+    padding: 10px 16px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--white-40);
+    border-bottom: 1px solid var(--navy-border);
+  }
+
+  .summary-row {
+    display: flex;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--navy-border);
+    gap: 16px;
+  }
+
+  .summary-row:last-child { border-bottom: none; }
+
+  .summary-q {
+    font-size: 12px;
+    color: var(--white-40);
+    flex: 0 0 40%;
+    line-height: 1.5;
+  }
+
+  .summary-a {
+    font-size: 13px;
+    color: var(--white);
+    flex: 1;
+    line-height: 1.5;
+  }
+
+  .summary-a.skipped { color: var(--white-40); font-style: italic; }
+  .summary-a.declined { color: var(--white-40); font-style: italic; }
+
+  /* CONFIRMAÇÃO */
+  #screen-confirm {
+    display: none;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .confirm-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    border: 1px solid var(--white-40);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .confirm-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .confirm-msg {
+    font-size: 14px;
+    color: var(--white-70);
+    line-height: 1.7;
+    max-width: 400px;
+    margin: 0 auto 2rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- TELA DE ENTRADA -->
+<div id="screen-intro">
+  <img src="perfil.png" class="avatar" alt="Foto de Luis Mota">
+  <p class="intro-tag">Eng. Luis Mota · Marketing Digital</p>
+  <h1 class="intro-title">Formulário Preliminar<br>de Marketing Digital</h1>
+  <p class="intro-desc">
+    Este diagnóstico é o primeiro passo para identificarmos exatamente onde sua empresa está perdendo clientes — e como resolver isso com uma estratégia de marketing digital personalizada.
+  </p>
+  <p class="intro-time">Tempo estimado: 5 a 8 minutos</p>
+  <button class="btn-primary" onclick="goToForm()">Iniciar Diagnóstico</button>
+</div>
+
+<!-- TELA FORMULÁRIO -->
+<div id="screen-form">
+  <div class="form-header">
+    <span class="form-header-name">Eng. Luis Mota</span>
+    <div class="progress-wrap">
+      <span class="progress-text" id="progress-text">Bloco 1 de 3</span>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="form-body" id="form-body">
+
+    <!-- BLOCO 1 -->
+    <div id="block-1">
+      <div class="block-header">
+        <p class="block-number">Bloco 01 / 03</p>
+        <h2 class="block-title">Estrutura Comercial</h2>
+        <p class="block-desc">Mapeamento do cenário atual, diferenciais e foco das primeiras campanhas.</p>
+      </div>
+
+      <div class="question" id="q1">
+        <div class="q-label-row">
+          <label class="q-label">Quais são os 3 produtos ou serviços mais vendidos ou com melhor margem de lucro hoje?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp1')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp1"><p>Esses produtos serão o foco das primeiras campanhas. Anunciar o que já vende bem reduz o risco e acelera o resultado. Não precisa ser uma lista exata — uma ideia geral já ajuda.</p></div>
+        <textarea class="q-input" id="q1-ans" rows="3" placeholder="Ex: calçado feminino, bolsas de couro, acessórios..."></textarea>
+        <div class="options-grid" style="margin-top:10px;">
+          <div class="opt-item decline" id="q1-skip" onclick="toggleSkip('q1')"><div class="opt-dot"></div> Não desejo responder essa pergunta</div>
+        </div>
+      </div>
+
+      <div class="question" id="q2">
+        <div class="q-label-row">
+          <label class="q-label">Qual é o ticket médio atual da sua loja? (valor médio por compra)</label>
+          <div class="q-badges">
+            <span class="badge-sensitive">Confidencial</span>
+            <button class="btn-explain" onclick="toggleExplain('exp2')">? Explicar</button>
+          </div>
+        </div>
+        <div class="explain-box" id="exp2"><p>Imagine que 10 clientes compraram hoje. Somou tudo e dividiu por 10 — esse é o ticket médio. Esse número nos diz se o custo para trazer um cliente novo vai gerar lucro real para você.</p></div>
+        <input type="text" class="q-input" id="q2-ans" placeholder="Ex: R$ 120,00 por compra">
+        <div class="options-grid" style="margin-top:10px;">
+          <div class="opt-item decline" id="q2-skip" onclick="toggleSkip('q2')"><div class="opt-dot"></div> Não desejo responder essa pergunta</div>
+        </div>
+      </div>
+
+      <div class="question" id="q3">
+        <div class="q-label-row">
+          <label class="q-label">Você tem clareza de quem é o seu cliente comprador? Descreva brevemente.</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp3')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp3"><p>Ex: "Mulheres de 25 a 45 anos, moradoras do Marco e Nazaré, que buscam moda com bom custo-benefício." Quanto mais específico, mais preciso será o anúncio — e menor o custo por cliente.</p></div>
+        <textarea class="q-input" id="q3-ans" rows="3" placeholder="Idade aproximada, bairros, comportamento de compra..."></textarea>
+        <div class="options-grid" style="margin-top:10px;">
+          <div class="opt-item decline" id="q3-skip" onclick="toggleSkip('q3')"><div class="opt-dot"></div> Não desejo responder essa pergunta</div>
+        </div>
+      </div>
+
+      <div class="question" id="q4">
+        <div class="q-label-row">
+          <label class="q-label">Quais são os seus 3 maiores concorrentes diretos na região?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp4')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp4"><p>Isso ajuda a analisar o que eles estão anunciando, identificar os pontos fracos deles e encontrar os seus diferenciais. Você não precisa ter certeza — pode citar os que vêm à mente.</p></div>
+        <textarea class="q-input" id="q4-ans" rows="2" placeholder="Ex: Loja X no shopping, Loja Y na travessa Z..."></textarea>
+        <div class="options-grid" style="margin-top:10px;">
+          <div class="opt-item decline" id="q4-skip" onclick="toggleSkip('q4')"><div class="opt-dot"></div> Não desejo responder essa pergunta</div>
+        </div>
+      </div>
+
+      <div class="question" id="q5">
+        <div class="q-label-row">
+          <label class="q-label">Qual é a sua principal meta para os próximos 3 meses com o marketing digital?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp5')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp5"><p>Ex: aumentar o movimento em dias fracos, queimar estoque parado, atrair clientes de maior poder aquisitivo, divulgar uma nova coleção. Não existe resposta errada aqui.</p></div>
+        <textarea class="q-input" id="q5-ans" rows="2" placeholder="Descreva o que seria um resultado ideal para você..."></textarea>
+        <div class="options-grid" style="margin-top:10px;">
+          <div class="opt-item decline" id="q5-skip" onclick="toggleSkip('q5')"><div class="opt-dot"></div> Não desejo responder essa pergunta</div>
+        </div>
+      </div>
+
+      <div class="block-nav">
+        <button class="btn-nav primary" onclick="goBlock(2)">Próximo Bloco →</button>
+      </div>
+    </div>
+
+    <!-- BLOCO 2 -->
+    <div id="block-2" style="display:none;">
+      <div class="block-header">
+        <p class="block-number">Bloco 02 / 03</p>
+        <h2 class="block-title">Infraestrutura Digital</h2>
+        <p class="block-desc">Avaliação da máquina interna: atendimento, tecnologia e capacidade de conversão.</p>
+      </div>
+
+      <div class="question" id="q6">
+        <div class="q-label-row">
+          <label class="q-label">Você possui site, domínio registrado ou algum protótipo em desenvolvimento?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp6')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp6"><p>Ex: www.suaempresa.com.br. Não precisa ser elaborado — até uma página simples já conta. Se não tiver, tudo bem, isso já está previsto na estratégia.</p></div>
+        <div class="options-grid">
+          <div class="opt-item" id="q6-sim" onclick="selectOpt('q6','Sim, tenho'); showConditional('q6-cond')"><div class="opt-dot"></div> Sim, tenho</div>
+          <div class="opt-item" id="q6-nao" onclick="selectOpt('q6','Não tenho'); hideConditional('q6-cond')"><div class="opt-dot"></div> Não tenho</div>
+          <div class="opt-item" id="q6-dev" onclick="selectOpt('q6','Em desenvolvimento'); hideConditional('q6-cond')"><div class="opt-dot"></div> Está em desenvolvimento</div>
+          <div class="opt-item decline" id="q6-skip" onclick="toggleSkip('q6')"><div class="opt-dot"></div> Não desejo responder</div>
+        </div>
+        <div class="conditional-field" id="q6-cond">
+          <input type="text" class="q-input" id="q6-url" placeholder="Informe o endereço do site (ex: www.suaempresa.com.br)" style="margin-top:8px;">
+        </div>
+      </div>
+
+      <div class="question" id="q7">
+        <div class="q-label-row">
+          <label class="q-label">Como funciona o atendimento online hoje?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp7')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp7"><p>Queremos entender se vocês usam WhatsApp Business (com catálogo), Instagram Profissional e quem é responsável por responder. Isso define se há gargalo no atendimento antes de ligarmos o tráfego.</p></div>
+        <textarea class="q-input" id="q7-ans" rows="3" placeholder="Ex: Respondo no WhatsApp, mas não tenho catálogo. No Instagram sou eu mesmo que respondo..."></textarea>
+        <div class="options-grid" style="margin-top:10px;">
+          <div class="opt-item decline" id="q7-skip" onclick="toggleSkip('q7')"><div class="opt-dot"></div> Não desejo responder essa pergunta</div>
+        </div>
+      </div>
+
+      <div class="question" id="q8">
+        <div class="q-label-row">
+          <label class="q-label">Como é feita hoje a gestão das postagens nos seus canais (Instagram, Facebook, WhatsApp)?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp8')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp8"><p>Quem posta, com que frequência e se há alguém externo envolvido. Isso define se a gestão de redes sociais precisa ser incorporada ao projeto ou se já está sendo tratada por outra pessoa.</p></div>
+        <div class="options-grid">
+          <div class="opt-item" id="q8-eu" onclick="selectOpt('q8','Eu mesmo posto')"><div class="opt-dot"></div> Eu mesmo posto</div>
+          <div class="opt-item" id="q8-func" onclick="selectOpt('q8','Um funcionário é responsável')"><div class="opt-dot"></div> Um funcionário é responsável</div>
+          <div class="opt-item" id="q8-ext" onclick="selectOpt('q8','Conto com profissional externo')"><div class="opt-dot"></div> Conto com profissional externo</div>
+          <div class="opt-item" id="q8-nao" onclick="selectOpt('q8','Não postamos regularmente')"><div class="opt-dot"></div> Não postamos regularmente</div>
+          <div class="opt-item decline" id="q8-skip" onclick="toggleSkip('q8')"><div class="opt-dot"></div> Não desejo responder</div>
+        </div>
+        <div style="margin-top:12px;">
+          <input type="text" class="q-input" id="q8-freq" placeholder="Com que frequência são publicados conteúdos? (ex: 3x por semana)">
+        </div>
+      </div>
+
+      <div class="question" id="q9">
+        <div class="q-label-row">
+          <label class="q-label">Sua equipe consegue responder rapidamente a um aumento repentino de mensagens?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp9')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp9"><p>Quando os anúncios entram no ar, o volume de mensagens aumenta em horas. Se o atendimento demorar mais de 30 minutos para responder, a maioria desses clientes já foi para o concorrente.</p></div>
+        <div class="options-grid">
+          <div class="opt-item" id="q9-sim" onclick="selectOpt('q9','Sim, consigo atender rapidamente')"><div class="opt-dot"></div> Sim, consigo atender rapidamente</div>
+          <div class="opt-item" id="q9-parc" onclick="selectOpt('q9','Parcialmente — há horários com demora')"><div class="opt-dot"></div> Parcialmente — há horários com demora</div>
+          <div class="opt-item" id="q9-nao" onclick="selectOpt('q9','Não, é um ponto fraco hoje')"><div class="opt-dot"></div> Não, é um ponto fraco hoje</div>
+          <div class="opt-item decline" id="q9-skip" onclick="toggleSkip('q9')"><div class="opt-dot"></div> Não desejo responder</div>
+        </div>
+      </div>
+
+      <div class="question" id="q10">
+        <div class="q-label-row">
+          <label class="q-label">Como é feito o registro de quem já comprou de você? (cadastro de clientes)</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp10')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp10"><p>Ter uma base de clientes própria é o ativo mais valioso de uma loja. Permite reengajar quem já comprou com promoções, novidades e fidelização — a um custo muito menor do que atrair novos.</p></div>
+        <div class="options-grid">
+          <div class="opt-item" id="q10-sys" onclick="selectOpt('q10','Sistema de gestão ou CRM')"><div class="opt-dot"></div> Sistema de gestão ou CRM</div>
+          <div class="opt-item" id="q10-plan" onclick="selectOpt('q10','Planilha ou caderno')"><div class="opt-dot"></div> Planilha ou caderno</div>
+          <div class="opt-item" id="q10-nao" onclick="selectOpt('q10','Não fazemos esse registro')"><div class="opt-dot"></div> Não fazemos esse registro</div>
+          <div class="opt-item decline" id="q10-skip" onclick="toggleSkip('q10')"><div class="opt-dot"></div> Não desejo responder</div>
+        </div>
+      </div>
+
+      <div class="block-nav">
+        <button class="btn-nav" onclick="goBlock(1)">← Anterior</button>
+        <button class="btn-nav primary" onclick="goBlock(3)">Próximo Bloco →</button>
+      </div>
+    </div>
+
+    <!-- BLOCO 3 -->
+    <div id="block-3" style="display:none;">
+      <div class="block-header">
+        <p class="block-number">Bloco 03 / 03</p>
+        <h2 class="block-title">Canais e Investimento</h2>
+        <p class="block-desc">Verificação de ferramentas ativas, histórico de anúncios e verba disponível.</p>
+      </div>
+
+      <div class="question" id="q11">
+        <div class="q-label-row">
+          <label class="q-label">Você já investiu em tráfego pago ou publicidade antes?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp11')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp11"><p>Anúncios no Facebook, Instagram, Google, panfletos, rádio, influenciadores — qualquer forma paga de divulgação conta. Isso ajuda a entender se partimos do zero ou otimizamos algo existente.</p></div>
+        <div class="options-grid">
+          <div class="opt-item" id="q11-sim" onclick="selectOpt('q11','Sim'); showConditional('q11-cond')"><div class="opt-dot"></div> Sim</div>
+          <div class="opt-item" id="q11-nao" onclick="selectOpt('q11','Não, nunca'); hideConditional('q11-cond')"><div class="opt-dot"></div> Não, nunca</div>
+          <div class="opt-item decline" id="q11-skip" onclick="toggleSkip('q11')"><div class="opt-dot"></div> Não desejo responder</div>
+        </div>
+        <div class="conditional-field" id="q11-cond">
+          <textarea class="q-input" id="q11-detail" rows="2" placeholder="O que já foi testado e qual foi o resultado percebido?" style="margin-top:8px;"></textarea>
+        </div>
+      </div>
+
+      <div class="question" id="q12">
+        <div class="q-label-row">
+          <label class="q-label">Como está a presença da loja no Google Maps (Google Meu Negócio)?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp12')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp12"><p>Pesquise agora o nome da sua loja no Google. Apareceu um painel lateral com endereço, fotos e avaliações? Isso é o Google Meu Negócio — a ferramenta gratuita mais importante para lojas físicas locais.</p></div>
+        <div class="options-grid">
+          <div class="opt-item" id="q12-ok" onclick="selectOpt('q12','Sim, está atualizado com fotos e avaliações')"><div class="opt-dot"></div> Sim, está atualizado com fotos e avaliações</div>
+          <div class="opt-item" id="q12-parc" onclick="selectOpt('q12','Existe, mas está desatualizado')"><div class="opt-dot"></div> Existe, mas está desatualizado</div>
+          <div class="opt-item" id="q12-nao" onclick="selectOpt('q12','Não tenho ou não sei')"><div class="opt-dot"></div> Não tenho ou não sei</div>
+          <div class="opt-item decline" id="q12-skip" onclick="toggleSkip('q12')"><div class="opt-dot"></div> Não desejo responder</div>
+        </div>
+      </div>
+
+      <div class="question" id="q13">
+        <div class="q-label-row">
+          <label class="q-label">Você possui cadastro no Meta Ads (Gerenciador de Negócios do Facebook)?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp13')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp13"><p>O Meta Ads é a plataforma oficial para criar anúncios no Facebook e Instagram. É diferente do botão "Impulsionar publicação" — ele dá muito mais controle e precisão na segmentação.</p></div>
+        <div class="options-grid">
+          <div class="opt-item" id="q13-sim" onclick="selectOpt('q13','Sim, tenho acesso de administrador')"><div class="opt-dot"></div> Sim, tenho acesso de administrador</div>
+          <div class="opt-item" id="q13-parc" onclick="selectOpt('q13','Tenho, mas acesso limitado')"><div class="opt-dot"></div> Tenho, mas acesso limitado</div>
+          <div class="opt-item" id="q13-nao" onclick="selectOpt('q13','Não tenho')"><div class="opt-dot"></div> Não tenho</div>
+          <div class="opt-item decline" id="q13-skip" onclick="toggleSkip('q13')"><div class="opt-dot"></div> Não desejo responder</div>
+        </div>
+      </div>
+
+      <div class="question" id="q14">
+        <div class="q-label-row">
+          <label class="q-label">Você possui banco de imagens e vídeos de qualidade da loja e dos produtos?</label>
+          <div class="q-badges"><button class="btn-explain" onclick="toggleExplain('exp14')">? Explicar</button></div>
+        </div>
+        <div class="explain-box" id="exp14"><p>Anúncios funcionam com imagens reais da loja — não fotos de catálogo genéricas. Se não houver material, precisaremos planejar uma sessão de fotos e vídeos como parte da estratégia.</p></div>
+        <div class="options-grid">
+          <div class="opt-item" id="q14-sim" onclick="selectOpt('q14','Sim, tenho bom material disponível')"><div class="opt-dot"></div> Sim, tenho bom material disponível</div>
+          <div class="opt-item" id="q14-parc" onclick="selectOpt('q14','Tenho algumas fotos, mas poucas')"><div class="opt-dot"></div> Tenho algumas fotos, mas poucas</div>
+          <div class="opt-item" id="q14-nao" onclick="selectOpt('q14','Não tenho, precisaria produzir')"><div class="opt-dot"></div> Não tenho, precisaria produzir</div>
+          <div class="opt-item decline" id="q14-skip" onclick="toggleSkip('q14')"><div class="opt-dot"></div> Não desejo responder</div>
+        </div>
+      </div>
+
+      <div class="question" id="q15">
+        <div class="q-label-row">
+          <label class="q-label">Qual é o orçamento mensal disponível exclusivamente para investir nos anúncios?</label>
+          <div class="q-badges">
+            <span class="badge-sensitive">Confidencial</span>
+            <button class="btn-explain" onclick="toggleExplain('exp15')">? Explicar</button>
+          </div>
+        </div>
+        <div class="explain-box" id="exp15"><p>Este valor é separado do custo de gestão — é o dinheiro que vai diretamente para a plataforma de anúncios (Meta/Google). O mínimo recomendado para resultado mensurável é R$ 600/mês.</p></div>
+        <div class="options-grid">
+          <div class="opt-item" id="q15-a" onclick="selectOpt('q15','Até R$ 300/mês')"><div class="opt-dot"></div> Até R$ 300/mês</div>
+          <div class="opt-item" id="q15-b" onclick="selectOpt('q15','Entre R$ 300 e R$ 600/mês')"><div class="opt-dot"></div> Entre R$ 300 e R$ 600/mês</div>
+          <div class="opt-item" id="q15-c" onclick="selectOpt('q15','Entre R$ 600 e R$ 1.000/mês')"><div class="opt-dot"></div> Entre R$ 600 e R$ 1.000/mês</div>
+          <div class="opt-item" id="q15-d" onclick="selectOpt('q15','Acima de R$ 1.000/mês')"><div class="opt-dot"></div> Acima de R$ 1.000/mês</div>
+          <div class="opt-item decline" id="q15-skip" onclick="toggleSkip('q15')"><div class="opt-dot"></div> Não desejo responder</div>
+        </div>
+      </div>
+
+      <div class="block-nav">
+        <button class="btn-nav" onclick="goBlock(2)">← Anterior</button>
+        <button class="btn-nav primary" onclick="calcScore()">Ver Resultado →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TELA SCORE -->
+<div id="screen-score">
+  <div class="form-header">
+    <span class="form-header-name">Eng. Luis Mota</span>
+    <span class="progress-text">Diagnóstico Concluído</span>
+  </div>
+  <div class="score-body">
+    <div class="score-ring-wrap">
+      <svg width="140" height="140" viewBox="0 0 140 140">
+        <circle cx="70" cy="70" r="58" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+        <circle id="score-arc" cx="70" cy="70" r="58" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="6" stroke-linecap="round"
+          stroke-dasharray="364.4" stroke-dashoffset="364.4" style="transition: stroke-dashoffset 1.2s ease;"/>
+      </svg>
+      <div class="score-number" id="score-num">0%</div>
+    </div>
+    <p class="score-level" id="score-level">Calculando...</p>
+    <h2 class="score-title" id="score-title"></h2>
+    <p class="score-msg" id="score-msg"></p>
+    <button class="btn-primary" onclick="goSummary()">Ver Resumo do Diagnóstico →</button>
+  </div>
+</div>
+
+<!-- TELA RESUMO -->
+<div id="screen-summary">
+  <div class="form-header">
+    <span class="form-header-name">Eng. Luis Mota</span>
+    <span class="progress-text">Resumo do Diagnóstico</span>
+  </div>
+  <div class="summary-body">
+    <div class="summary-header">
+      <p class="summary-tag">Formulário Preliminar de Marketing Digital</p>
+      <h2 class="summary-title">Suas Respostas</h2>
+    </div>
+    <div id="summary-content"></div>
+    <div style="margin-top:2.5rem; display:flex; gap:12px; flex-wrap:wrap;">
+      <button class="btn-nav primary" onclick="sendWhatsApp()">Enviar para Eng. Luis Mota →</button>
+      <button class="btn-nav" onclick="location.reload()">Preencher Novamente</button>
+    </div>
+  </div>
+</div>
+
+<!-- TELA CONFIRMAÇÃO -->
+<div id="screen-confirm" style="display:none; min-height:100vh; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:3rem 2rem;">
+  <div class="confirm-icon">✓</div>
+  <h2 class="confirm-title">Diagnóstico Enviado</h2>
+  <p class="confirm-msg">Obrigado pelo preenchimento. Entrarei em contato em até 24 horas para agendarmos a Reunião de Apresentação. Fique de olho no seu WhatsApp.</p>
+  <button class="btn-primary" onclick="location.reload()">Voltar ao Início</button>
+</div>
+
+<script>
+  const answers = {};
+  const skipped = {};
+
+  function goToForm() {
+    document.getElementById('screen-intro').style.display = 'none';
+    document.getElementById('screen-form').style.display = 'block';
+    updateProgress(1);
+    loadDraft();
+  }
+
+  function updateProgress(block) {
+    const pct = ((block - 1) / 3 * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-text').textContent = 'Bloco ' + block + ' de 3';
+  }
+
+  function goBlock(n) {
+    saveDraft();
+    for (let i = 1; i <= 3; i++) {
+      const el = document.getElementById('block-' + i);
+      if (el) el.style.display = i === n ? 'block' : 'none';
+    }
+    updateProgress(n);
+    window.scrollTo(0, 0);
+  }
+
+  function toggleExplain(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function toggleSkip(qid) {
+    const skipEl = document.getElementById(qid + '-skip');
+    if (skipped[qid]) {
+      delete skipped[qid];
+      skipEl.classList.remove('selected');
+    } else {
+      skipped[qid] = true;
+      skipEl.classList.add('selected');
+      document.querySelectorAll('[id^="' + qid + '-"]').forEach(el => {
+        if (el.classList.contains('opt-item') && !el.classList.contains('decline')) el.classList.remove('selected');
+      });
+      delete answers[qid];
+    }
+    saveDraft();
+  }
+
+  function selectOpt(qid, val) {
+    answers[qid] = val;
+    delete skipped[qid];
+    document.querySelectorAll('[id^="' + qid + '-"]').forEach(el => {
+      if (el.classList.contains('opt-item')) el.classList.remove('selected');
+    });
+    document.querySelectorAll('[id^="' + qid + '-"]').forEach(el => {
+      if (el.classList.contains('opt-item') && !el.classList.contains('decline') && el.textContent.trim() === val) {
+        el.classList.add('selected');
+      }
+    });
+    const skipEl = document.getElementById(qid + '-skip');
+    if (skipEl) skipEl.classList.remove('selected');
+    saveDraft();
+  }
+
+  function showConditional(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('open');
+  }
+
+  function hideConditional(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('open');
+  }
+
+  function saveDraft() {
+    const textFields = ['q1-ans','q2-ans','q3-ans','q4-ans','q5-ans','q6-url','q7-ans','q8-freq','q11-detail'];
+    const draft = { answers: {...answers}, skipped: {...skipped}, texts: {} };
+    textFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) draft.texts[id] = el.value;
+    });
+    try { localStorage.setItem('diag_draft_lm', JSON.stringify(draft)); } catch(e) {}
+  }
+
+  function loadDraft() {
+    try {
+      const raw = localStorage.getItem('diag_draft_lm');
+      if (!raw) return;
+      const draft = JSON.parse(raw);
+      Object.assign(answers, draft.answers || {});
+      Object.assign(skipped, draft.skipped || {});
+      Object.entries(draft.texts || {}).forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      });
+      Object.entries(answers).forEach(([qid, val]) => selectOpt(qid, val));
+      Object.keys(skipped).forEach(qid => {
+        const el = document.getElementById(qid + '-skip');
+        if (el) el.classList.add('selected');
+      });
+    } catch(e) {}
+  }
+
+  function getTextVal(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function calcScore() {
+    saveDraft();
+    const scored = {
+      q6:  { 'Sim, tenho': 3, 'Em desenvolvimento': 1, 'Não tenho': 0 },
+      q9:  { 'Sim, consigo atender rapidamente': 3, 'Parcialmente — há horários com demora': 1, 'Não, é um ponto fraco hoje': 0 },
+      q10: { 'Sistema de gestão ou CRM': 3, 'Planilha ou caderno': 1, 'Não fazemos esse registro': 0 },
+      q12: { 'Sim, está atualizado com fotos e avaliações': 3, 'Existe, mas está desatualizado': 1, 'Não tenho ou não sei': 0 },
+      q13: { 'Sim, tenho acesso de administrador': 3, 'Tenho, mas acesso limitado': 1, 'Não tenho': 0 },
+      q14: { 'Sim, tenho bom material disponível': 3, 'Tenho algumas fotos, mas poucas': 1, 'Não tenho, precisaria produzir': 0 },
+      q15: { 'Até R$ 300/mês': 0, 'Entre R$ 300 e R$ 600/mês': 1, 'Entre R$ 600 e R$ 1.000/mês': 2, 'Acima de R$ 1.000/mês': 3 },
+    };
+
+    let pts = 0, max = 0;
+    Object.entries(scored).forEach(([qid, map]) => {
+      max += 3;
+      const ans = answers[qid];
+      if (ans && map[ans] !== undefined) pts += map[ans];
+    });
+
+    const pct = Math.round((pts / max) * 100);
+    let level, title, msg;
+
+    if (pct <= 25) {
+      level = 'Estágio Inicial'; title = 'Grande Oportunidade à Vista';
+      msg = 'Sua loja tem uma base sólida de produto e operação. O digital ainda não foi explorado — e é exatamente isso que representa o maior potencial de crescimento. Estamos começando pelo lugar certo.';
+    } else if (pct <= 50) {
+      level = 'Em Desenvolvimento'; title = 'Primeiros Passos Dados';
+      msg = 'Você já possui elementos de presença digital. Há pontos estratégicos prontos para serem ativados e otimizados — o que significa resultados em menor tempo.';
+    } else if (pct <= 75) {
+      level = 'Em Expansão'; title = 'Estrutura Evoluída';
+      msg = 'Sua infraestrutura digital está bem posicionada. O foco agora é integrar os canais existentes em um ecossistema coeso e escalar com inteligência.';
+    } else {
+      level = 'Avançado'; title = 'Base Consolidada';
+      msg = 'Infraestrutura sólida. Você está pronto para escalar com estratégia de tráfego pago focada em maximizar o retorno sobre o investimento.';
+    }
+
+    document.getElementById('screen-form').style.display = 'none';
+    document.getElementById('screen-score').style.display = 'block';
+    document.getElementById('score-level').textContent = level;
+    document.getElementById('score-title').textContent = title;
+    document.getElementById('score-msg').textContent = msg;
+
+    setTimeout(() => {
+      let cur = 0;
+      const arc = document.getElementById('score-arc');
+      const numEl = document.getElementById('score-num');
+      const circ = 364.4;
+      const timer = setInterval(() => {
+        cur = Math.min(cur + 2, pct);
+        arc.style.strokeDashoffset = circ - (circ * cur / 100);
+        numEl.textContent = cur + '%';
+        if (cur >= pct) clearInterval(timer);
+      }, 20);
+    }, 200);
+  }
+
+  function goSummary() {
+    document.getElementById('screen-score').style.display = 'none';
+    document.getElementById('screen-summary').style.display = 'block';
+
+    const blocks = [
+      { title: 'Bloco 1 — Estrutura Comercial', qs: [
+        { id: 'q1', label: 'Produtos principais', text: 'q1-ans' },
+        { id: 'q2', label: 'Ticket médio', text: 'q2-ans' },
+        { id: 'q3', label: 'Público-alvo', text: 'q3-ans' },
+        { id: 'q4', label: 'Concorrentes', text: 'q4-ans' },
+        { id: 'q5', label: 'Meta 3 meses', text: 'q5-ans' },
+      ]},
+      { title: 'Bloco 2 — Infraestrutura Digital', qs: [
+        { id: 'q6', label: 'Site ou domínio' },
+        { id: 'q7', label: 'Atendimento online', text: 'q7-ans' },
+        { id: 'q8', label: 'Gestão de postagens' },
+        { id: 'q9', label: 'Capacidade de atendimento' },
+        { id: 'q10', label: 'Cadastro de clientes' },
+      ]},
+      { title: 'Bloco 3 — Canais e Investimento', qs: [
+        { id: 'q11', label: 'Histórico de anúncios' },
+        { id: 'q12', label: 'Google Meu Negócio' },
+        { id: 'q13', label: 'Meta Ads' },
+        { id: 'q14', label: 'Material visual' },
+        { id: 'q15', label: 'Orçamento para anúncios' },
+      ]},
+    ];
+
+    let html = '';
+    blocks.forEach(block => {
+      html += '<div class="summary-block"><div class="summary-block-title">' + block.title + '</div>';
+      block.qs.forEach(q => {
+        let ansVal = '', cls = '';
+        if (skipped[q.id]) { ansVal = 'Preferiu não responder'; cls = 'declined'; }
+        else if (q.text) { ansVal = getTextVal(q.text) || '—'; if (!getTextVal(q.text)) cls = 'skipped'; }
+        else { ansVal = answers[q.id] || '—'; if (!answers[q.id]) cls = 'skipped'; }
+        if (q.id === 'q8' && answers['q8']) {
+          const freq = getTextVal('q8-freq');
+          ansVal = answers['q8'] + (freq ? ' · ' + freq : '');
+        }
+        html += '<div class="summary-row"><div class="summary-q">' + q.label + '</div><div class="summary-a ' + cls + '">' + ansVal + '</div></div>';
+      });
+      html += '</div>';
+    });
+
+    document.getElementById('summary-content').innerHTML = html;
+  }
+
+  function sendWhatsApp() {
+    saveDraft();
+    const now = new Date();
+    const data = now.toLocaleDateString('pt-BR');
+    const hora = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+    const getAns = (qid, textId) => {
+      if (skipped[qid]) return '🚫 Preferiu não responder';
+      if (textId) return getTextVal(textId) || '—';
+      return answers[qid] || '—';
+    };
+
+    const msg =
+`📋 NOVO DIAGNÓSTICO RECEBIDO
+─────────────────────────
+📅 Data: ${data} às ${hora}
+─────────────────────────
+BLOCO 1 — ESTRUTURA COMERCIAL
+• Produtos principais: ${getAns('q1','q1-ans')}
+• Ticket médio: ${getAns('q2','q2-ans')}
+• Público-alvo: ${getAns('q3','q3-ans')}
+• Concorrentes: ${getAns('q4','q4-ans')}
+• Meta 3 meses: ${getAns('q5','q5-ans')}
+─────────────────────────
+BLOCO 2 — INFRAESTRUTURA
+• Site/domínio: ${getAns('q6')}
+• Atendimento online: ${getAns('q7','q7-ans')}
+• Gestão de postagens: ${getAns('q8')} | Frequência: ${getTextVal('q8-freq') || '—'}
+• Capacidade de atendimento: ${getAns('q9')}
+• Cadastro de clientes: ${getAns('q10')}
+─────────────────────────
+BLOCO 3 — CANAIS E INVESTIMENTO
+• Histórico de anúncios: ${getAns('q11')}
+• Google Meu Negócio: ${getAns('q12')}
+• Meta Ads: ${getAns('q13')}
+• Material visual: ${getAns('q14')}
+• Orçamento para anúncios: ${getAns('q15')}
+─────────────────────────
+Formulário Preliminar de Marketing Digital — Eng. Luis Mota`;
+
+    window.open('https://wa.me/5591991815497?text=' + encodeURIComponent(msg), '_blank');
+
+    try { localStorage.removeItem('diag_draft_lm'); } catch(e) {}
+
+    document.getElementById('screen-summary').style.display = 'none';
+    const conf = document.getElementById('screen-confirm');
+    conf.style.display = 'flex';
+  }
+</script>
+</body>
+</html>
